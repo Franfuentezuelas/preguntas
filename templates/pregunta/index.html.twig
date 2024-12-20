@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Preguntas{% endblock %}
+
+{% block body %}
+    <style>
+        /* Estilos para la página */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+            text-align: right;
+            margin: 10px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .content-wrapper {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+    <header>
+        <h1>FranQuiz</h1>
+    </header>
+
+    <nav>
+        <a href="{{ path('app_logout') }}">logout</a>
+    </nav>
+    <div class="pregunta-container">
+        <h2>Preguntas</h2>
+
+        {# Botón para crear una nueva pregunta #}
+        <form action="{{ path('pregunta_create') }}" method="get" style="display:inline;">
+            <button type="submit" class="btn btn-success mb-3">Crear nueva pregunta</button>
+        </form>
+
+        {% if preguntas is empty %}
+            <p>No hay preguntas disponibles.</p>
+        {% else %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pregunta in preguntas %}
+                        <tr>
+                            <td>{{ pregunta.descripcion | slice(0, 150) }}...</td>  {# Muestra los primeros 150 caracteres de la descripción #}
+                            <td>
+                                {# Botón para editar la pregunta #}
+                                <form action="{{ path('pregunta_edit', {'id': pregunta.id}) }}" method="get" style="display:inline;">
+                                    <button type="submit" class="btn btn-info">Editar</button>
+                                </form>
+
+                                {# Formulario para eliminar la pregunta #}
+                                <form action="{{ path('pregunta_delete', {'id': pregunta.id}) }}" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta pregunta?');">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/pregunta.css') }}">
+{% endblock %}
+
+
+
+
+

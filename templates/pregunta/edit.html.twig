@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Pregunta{% endblock %}
+
+{% block body %}
+    <style>
+        /* Estilos para la página */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+            text-align: right;
+            margin: 10px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .content-wrapper {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+    <header>
+        <h1>FranQuiz</h1>
+    </header>
+
+    <nav>
+        <a href="{{ path('app_logout') }}">logout</a>
+    </nav>
+    <h1>Editar Pregunta</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.descripcion) }}
+        {{ form_row(form.opcion1) }}
+        {{ form_row(form.opcion2) }}
+        {{ form_row(form.opcion3) }}
+        {{ form_row(form.opcion4) }}
+        {{ form_row(form.correcta) }}
+        {{ form_row(form.fechaInicio) }}
+        {{ form_row(form.fechaFin) }}
+
+        <button class="btn btn-primary">Guardar</button>
+    {{ form_end(form) }}
+
+    {# Botón para volver al listado de preguntas #}
+    <form action="{{ path('pregunta_index') }}" method="get" style="display:inline;">
+        <button type="submit" class="btn btn-secondary mt-3">Volver al listado</button>
+    </form>
+{% endblock %}
+
